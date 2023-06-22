@@ -7,6 +7,7 @@ These dependencies are:
 - Java 11+
 - [Javalin](https://javalin.io/)
 - [Auth0 Java JWT](https://github.com/auth0/java-jwt)
+- [Nimbus JOSE + JWT](https://connect2id.com/products/nimbus-jose-jwt)
 - [SLF4J](http://www.slf4j.org/) with [slf4j-simple](https://www.slf4j.org/apidocs/org/slf4j/simple/SimpleLogger.html)
 
 ## Installation and usage

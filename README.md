@@ -1,7 +1,7 @@
 # JwtTest
 
 JwtTest is a tiny script that issues a JWT token and also exposes a JWKS endpoint for the verification of the token.
-Use it to test your JWT verification code. This project uses [JBang](https://www.jbang.dev), which will take care of installing all the dependencies for you.
+Use it to test your JWT verification code or when you are developing a JWT-secured API locally and need to add a token to your requests. This project uses [JBang](https://www.jbang.dev), which will take care of installing all the dependencies for you.
 These dependencies are:
 
 - Java 11+

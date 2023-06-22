@@ -3,6 +3,7 @@
 //DEPS io.javalin:javalin:5.6.0
 //DEPS org.slf4j:slf4j-simple:2.0.7
 //DEPS com.auth0:java-jwt:4.3.0
+//DEPS com.nimbusds:nimbus-jose-jwt:9.31
 //FILES simplelogger.properties
 //JAVA 11+
 
@@ -18,6 +19,7 @@ import io.javalin.http.Context;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.nimbusds.jose.jwk.*;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -25,7 +27,6 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Map;
 
 @Command(name = "JwtTest", mixinStandardHelpOptions = true, version = "JwtTest 0.1",
@@ -67,7 +68,6 @@ class JwtTest implements Callable<Integer> {
         if (args.length > 1 && !args[0].startsWith("-")) {
             args = Arrays.copyOfRange(args, 1, args.length);
         }
-        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "ERROR");
         new CommandLine(new JwtTest()).execute(args);
     }
 
@@ -84,14 +84,12 @@ class JwtTest implements Callable<Integer> {
     }
 
     private void returnJwks(Context ctx) {
-        var pk = (RSAPublicKey)keyPair.getPublic();
-        var exp = pk.getPublicExponent();
-        var mod = pk.getModulus();
-        var expBase64 = Base64.getUrlEncoder().encodeToString(exp.toByteArray());
-        var modBase64 = Base64.getUrlEncoder().encodeToString(mod.toByteArray());
-        String jwk = "{\"keys\":[{\"kty\":\"RSA\",\"e\":\"" + expBase64 + "\",\"use\":\"sig\",\"kid\":\"" + keyId + "\",\"n\":\"" + modBase64 + "\"}]}";
+        JWK jwk = new RSAKey.Builder((RSAPublicKey)keyPair.getPublic())
+                .keyUse(KeyUse.SIGNATURE)
+                .keyID(keyId)
+                .build();
         ctx.contentType("application/json");
-        ctx.result(jwk);
+        ctx.result(String.format("{ \"keys\": [%s] }", jwk.toJSONString()));
     }
 
     private void printJwt() {

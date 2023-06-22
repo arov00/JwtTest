@@ -24,6 +24,7 @@ import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Instant;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
 
@@ -62,6 +63,10 @@ class JwtTest implements Callable<Integer> {
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(JwtTest.class);
 
     public static void main(String... args) {
+        // if the first arg is the command name, so skip it
+        if (args.length > 1 && !args[0].startsWith("-")) {
+            args = Arrays.copyOfRange(args, 1, args.length);
+        }
         System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "ERROR");
         new CommandLine(new JwtTest()).execute(args);
     }

@@ -20,7 +20,7 @@ curl -Ls https://sh.jbang.dev | bash -s - app setup
 Then simply start the script:
 
 ```bash
-jbang run JwtTest.java %https://github.com/arov00/JwtTest/blob/master/JwtTest.java
+jbang run https://github.com/arov00/JwtTest/blob/master/JwtTest.java
 ```
 
 Alternatively, you can download the script and run it locally (JBang is still required):

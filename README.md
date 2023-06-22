@@ -29,6 +29,12 @@ Alternatively, you can download the script and run it locally (JBang is still re
 ./JwtTest.java
 ```
 
+You can verify that the JWKS endpoint is working by running:
+
+```bash
+curl http://localhost:7000/jwks
+```
+
 The default JWT is fine for demonstration purposes, but you probably want to customize it:
 
 ```bash
@@ -42,7 +48,7 @@ The default JWT is fine for demonstration purposes, but you probably want to cus
             --ttl 60
 ```
 
-This will issue a JWT with the following payload:
+This will issue a JWT with the following payload (the `exp` and `iat` fields will be different):
 
 ```json
 {

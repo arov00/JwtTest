@@ -24,7 +24,7 @@ Then simply start the script:
 jbang run https://github.com/arov00/JwtTest/blob/master/JwtTest.java
 ```
 
-Alternatively, you can download the script and run it locally (JBang is still required):
+Alternatively, you can clone this repository and run the script locally (JBang is still required):
 
 ```bash
 ./JwtTest.java
